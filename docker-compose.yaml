@@ -1,0 +1,25 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    #image: ${ECR_REGISTRY}/blog-backend:latest
+    image: n1ckl3/blog-backend:latest
+    ports:
+      - "5001:5000"
+    networks:
+      - blog-network
+  frontend:
+    build: ./frontend
+    #image: ${ECR_REGISTRY}/blog-frontend:latest
+    image: n1ckl3/blog-frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - blog-network
+
+networks:
+  blog-network:
+    driver: bridge
+
